@@ -1,0 +1,601 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <conio.h>
+using namespace std;
+class ships
+{
+public:
+	ships()
+	{
+	}
+	~ships()
+	{
+	}
+	bool placeShips()
+	{
+		int time = 0;
+		bool bar = true, Dalton = true, Kale = true;
+		char shipRow;
+		int shipColumn, shipRowNum;
+		string shipN;
+		do
+		{
+			time++;
+			char choice, ship;
+		label1:
+			cout << endl << "Would you like to place your ";
+			//lazy way to make it happen but hey it works
+			switch (time)
+			{
+			case 1:
+				cout << "Aircraft Carrier";
+				ship = 'A';
+				shipN = "Carrier";
+				break;
+			case 2:
+				cout << "Battleship";
+				ship = 'B';
+				shipN = "Battleship";
+				break;
+			case 3:
+				cout << "Destroyer";
+				ship = 'D';
+				shipN = "Destroyer";
+				break;
+			case 4:
+				cout << "Submarine";
+				ship = 'S';
+				shipN = "Submarine";
+				break;
+			case 5:
+				cout << "Cruiser";
+				ship = 'C';
+				shipN = "Cruiser";
+				break;
+			default:
+				cout << "This is just to catch errors, move on with your life person inspecting my code" << endl;
+				break;
+			}
+			cout << " horizontally or vertically?(H/V)" << endl;
+			do
+			{
+				cout << "Choice:";
+				cin >> choice;
+				switch (choice)
+				{
+				case 'V':
+					cout << endl << "Please enter the letter of the column you would like to start your ship at (A-J)" << endl << "Choice:";
+					do
+					{
+						cin >> shipRow;
+						switch (shipRow)
+						{
+						case 'A':
+							shipRowNum = 1;
+							Dalton = false;
+							break;
+						case 'B':
+							shipRowNum = 2;
+							Dalton = false;
+							break;
+						case 'C':
+							shipRowNum = 3;
+							Dalton = false;
+							break;
+						case 'D':
+							shipRowNum = 4;
+							Dalton = false;
+							break;
+						case 'E':
+							shipRowNum = 5;
+							Dalton = false;
+							break;
+						case 'F':
+							shipRowNum = 6;
+							Dalton = false;
+							break;
+						case 'G':
+							shipRowNum = 7;
+							Dalton = false;
+							break;
+						case 'H':
+							shipRowNum = 8;
+							Dalton = false;
+							break;
+						case 'I':
+							shipRowNum = 9;
+							Dalton = false;
+							break;
+						case 'J':
+							shipRowNum = 10;
+							Dalton = false;
+							break;
+						default:
+							cout << "Please enter a valid choice" << endl << "Choice:";
+							break;
+						}
+					} while (Dalton);
+					cout << endl << "Please enter the number of the row you would liketo start your ship at (1-10)" << endl;
+					do
+					{
+						cout << "Choice:";
+						cin >> shipColumn;
+						if (shipColumn > 0 && shipColumn < 11)
+						{
+							switch (ship)
+							{
+							case 'A':
+								if (shipColumn > 6)
+								{
+									cout << endl << "The entered coordinates would place the ship out of bounds, please select new coordinates" << endl;
+									goto label1;
+								}
+								else if (check(shipRowNum, shipColumn, shipN))
+								{
+									cout << endl << "The entered coordinates conflict with another ship, please select new coordinates" << endl;
+									goto label1;
+								}
+								else
+								{
+									for (int i = 0; i<5; i++)
+									{
+										for (int j = 0; j<5; j++)
+										{
+											carrLocation[i][j] = shipRowNum, shipColumn + i;
+										}
+									}
+								}
+								break;
+							case 'B':
+								if (shipColumn > 7)
+								{
+									cout << endl << "The entered coordinates would place the ship out of bounds, please select new coordinates" << endl;
+									goto label1;
+								}
+								else if (check(shipRowNum, shipColumn, shipN))
+								{
+									cout << endl << "The entered coordinates conflict with another ship, please select new coordinates" << endl;
+									goto label1;
+								}
+								else
+								{
+									for (int i = 0; i<4; i++)
+									{
+										for (int j = 0; j<4; j++)
+										{
+											bsLocation[i][j] = shipRowNum, shipColumn + i;
+										}
+									}
+								}
+								break;
+							case 'D':
+								if (shipRow > 8)
+								{
+									cout << endl << "The entered coordinates would place the ship out of bounds, please select new coordinates" << endl;
+									goto label1;
+								}
+								else if (check(shipRowNum, shipColumn, shipN))
+								{
+									cout << endl << "The entered coordinates conflict with another ship, please select new coordinates" << endl;
+									goto label1;
+								}
+								else
+								{
+									for (int i = 0; i<3; i++)
+									{
+										for (int j = 0; j<3; j++)
+										{
+											dLocation[i][j] = shipRowNum, shipColumn + i;
+										}
+									}
+								}
+								break;
+							case 'S':
+								if (shipRow > 8)
+								{
+									cout << endl << "The entered coordinates would place the ship out of bounds, please select new coordinates" << endl;
+									goto label1;
+								}
+								else if (check(shipRowNum, shipColumn,shipN))
+								{
+									cout << endl << "The entered coordinates conflict with another ship, please select new coordinates" << endl;
+									goto label1;
+								}
+								else
+								{
+									for (int i = 0; i<3; i++)
+									{
+										for (int j = 0; j<3; j++)
+										{
+											subLocation[i][j] = shipRowNum, shipColumn + i;
+										}
+									}
+								}
+								break;
+							case 'C':
+								if (shipRow > 9)
+								{
+									cout << endl << "The entered coordinates would place the ship out of bounds, please select new coordinates" << endl;
+									goto label1;
+								}
+								else if (check(shipRowNum, shipColumn,shipN))
+								{
+									cout << endl << "The entered coordinates conflict with another ship, please select new coordinates" << endl;
+									goto label1;
+								}
+								else
+								{
+									for (int i = 0; i<2; i++)
+									{
+										for (int j = 0; j<2; j++)
+										{
+											carrLocation[i][j] = shipRowNum, shipColumn + i;
+										}
+									}
+								}
+								break;
+							}
+						}
+						else
+						{
+							cout << "Please enter a valid choice" << endl;
+						}
+					} while (Kale);
+					break;
+				case 'H':
+					break;
+				default:
+					cout << "Please enter a valid choice" << endl;
+					break;
+				}
+			} while (bar);
+		} while (time <= 5);
+		return(true);
+	}
+	//only use to check for placing the ships
+	bool check(int column, int row, string ship)
+	{
+		//cycle through the ship location values looking for a match, yes it's messy but hey it works (poi)
+		int coords[2] = { column, row };
+		if (ship != "Carrier")
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				for (int j = 0; j < 5; j++)
+				{
+					if (carrLocation[i][j] == coords[1], coords[2])
+					{
+						return(true);
+					}
+				}
+			}
+		}
+		if (ship != "Battleship")
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					if (bsLocation[i][j] == coords[1], coords[2])
+					{
+						return(true);
+					}
+				}
+			}
+		}
+		if (ship != "Destroyer")
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					if (dLocation[i][j] == coords[1], coords[2])
+					{
+						return(true);
+					}
+				}
+			}
+		}
+		if (ship != "Submarine")
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					if (subLocation[i][j] == coords[1], coords[2])
+					{
+						return(true);
+					}
+				}
+			}
+		}
+		if (ship != "Cruiser")
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				for (int j = 0; j < 2; j++)
+				{
+					if (cLocation[i][j] == coords[1], coords[2])
+					{
+						return(true);
+					}
+				}
+			}
+		}
+		return(false);
+	}
+	bool checkHit(int column, int row)
+	{
+		int coords[2] = { column, row };
+		for (int i = 0; i<5; i++)
+		{
+			for (int j = 0; j < 5; j++)
+			{
+				if (carrLocation[i][j] == coords[1],coords[2])
+				{
+					carrSecSunk[i] = true;
+					return(true);
+				}
+			}
+		}
+		for (int i = 0; i<4; i++)
+		{
+			for (int j = 0; j<4; j++)
+			{
+				if (bsLocation[i][j] == coords[1], coords[2])
+				{
+					bsSecSunk[i] = true;
+					return(true);
+				}
+			}
+		}
+		for (int i = 0; i<3; i++)
+		{
+			for (int j = 0; j<3; j++)
+			{
+				if (dLocation[i][j] == coords[1], coords[2])
+				{
+					dSecSunk[i] = true;
+					return(true);
+				}
+			}
+		}
+		for (int i = 0; i<3; i++)
+		{
+			for (int j = 0; j<3; j++)
+			{
+				if (subLocation[i][j] == coords[1], coords[2])
+				{
+					subSecSunk[i] = true;
+					return(true);
+				}
+			}
+		}
+		for (int i = 0; i<2; i++)
+		{
+			for (int j = 0; j<2; j++)
+			{
+				if (cLocation[i][j] == coords[1], coords[2])
+				{
+					cSecSunk[i] = true;
+					return(true);
+				}
+			}
+		}
+		return(false);
+	}
+	bool isHit(int column, int row)
+	{
+		for (int i = 0; i<5; i++)
+		{
+			for (int j = 0; j < 5; j++)
+			{
+				if (carrSecSunk[i])
+				{
+					return(true);
+				}
+			}
+		}
+		for (int i = 0; i<4; i++)
+		{
+			for (int j = 0; j<4; j++)
+			{
+				if (bsSecSunk[i])
+				{
+					return(true);
+				}
+			}
+		}
+		for (int i = 0; i<3; i++)
+		{
+			for (int j = 0; j<3; j++)
+			{
+				if (dSecSunk[i])
+				{
+					return(true);
+				}
+			}
+		}
+		for (int i = 0; i<3; i++)
+		{
+			for (int j = 0; j<3; j++)
+			{
+				if (subSecSunk[i])
+				{
+					return(true);
+				}
+			}
+		}
+		for (int i = 0; i<2; i++)
+		{
+			for (int j = 0; j<2; j++)
+			{
+				if (cSecSunk[i])
+				{
+					return(true);
+				}
+			}
+		}
+		return(false);
+	}
+	bool reset()
+	{
+		carrSecSunk[4] = { false }, bsSecSunk[3] = { false }, dSecSunk[2] = { false }, subSecSunk[2] = { false }, cSecSunk[1] = { false };
+	}
+	int guess(int column, char row)
+	{
+		int rowNumber;
+		switch (row)
+		{
+		case 'A':
+			rowNumber = 1;
+			break;
+		case 'B':
+			rowNumber = 2;
+			break;
+		case 'C':
+			rowNumber = 3;
+			break;
+		case 'D':
+			rowNumber = 4;
+			break;
+		case 'E':
+			rowNumber = 5;
+			break;
+		case 'F':
+			rowNumber = 6;
+			break;
+		case 'G':
+			rowNumber = 7;
+			break;
+		case 'H':
+			rowNumber = 8;
+			break;
+		case 'I':
+			rowNumber = 9;
+			break;
+		case 'J':
+			rowNumber = 10;
+			break;
+		}
+		if (checkHit(column, rowNumber))
+		{
+			cout << endl << "Hit!" << endl;
+			return(0);
+		}
+		else
+		{
+			cout << endl << "Miss!" << endl;
+			return(0);
+		}
+	}
+private:
+	bool shipsSunk[5] = { false };
+	bool carrSecSunk[4] = { false }, bsSecSunk[3] = { false }, dSecSunk[2] = { false }, subSecSunk[2] = { false }, cSecSunk[1] = { false };
+	int carrLocation[4][4] = { 0 }, bsLocation[3][3] = { 0 }, dLocation[2][2] = { 0 }, subLocation[2][2] = { 0 }, cLocation[1][1] = { 0 };
+};
+void drawBoard(ships& playerShips)
+{
+	//cycle through the board and find the ships, like a shitty radar :D
+	for (int i = 0; i<11; i++)
+	{
+		for (int j = 0; j<11; j++)
+		{
+			if (j == 0 && i == 0)
+			{
+				cout << "+";
+			}
+			else if (i == 0)
+			{
+				cout << j;
+			}
+			else if (j == 0)
+			{
+				switch (i)
+				{
+				case 1:
+					cout << "A";
+					break;
+				case 2:
+					cout << "B";
+					break;
+				case 3:
+					cout << "C";
+					break;
+				case 4:
+					cout << "D";
+					break;
+				case 5:
+					cout << "E";
+					break;
+				case 6:
+					cout << "F";
+					break;
+				case 7:
+					cout << "G";
+					break;
+				case 8:
+					cout << "H";
+					break;
+				case 9:
+					cout << "I";
+					break;
+				case 10:
+					cout << "J";
+					break;
+				}
+			}
+			else if (playerShips.isHit(i, j))
+			{
+				cout << "X";
+			}
+			else if (playerShips.check(i, j, "dummyFix"))
+			{
+				cout << "#";
+			}
+			else
+			{
+				cout << "~";
+			}
+		}
+		cout << endl;
+	}
+}
+void wrong()
+{
+	cout << "Please enter a valid choice" << endl;
+}
+int main(void)
+{
+	bool foo = true, playerWin = false, playerLose = false;
+	char rules;
+	cout << "Welcome to Battle Boats! (Totally not a ripoff of Battleship)" << endl << "Would you like the rules?(Y/N)" << endl;
+	do
+	{
+		cout << "Choice:";
+		cin >> rules;
+		if (rules == 'Y' || rules == 'N')
+		{
+			switch (rules)
+			{
+			case 'Y':
+				cout << endl << "First you will select where to place your ships on a 10x10 grid plane, an aircraft carrier that's 5 grid sections long, a battleship that's 4 grid sections long, a submarine and destroyer that are both 3 grid sections long, and a destroyer that's 2 grid sections long that must be placed in a horizontal or vertical row. Then the player and computer will take turns trying to guess where each other's ships are on the grid. The first person to sink the other's ships wins." << endl;
+				break;
+			case 'N':
+				cout << endl << "Let's get the game started then" << endl;
+				break;
+			}
+			foo = false;
+		}
+		else
+		{
+			wrong();
+		}
+	} while (foo);
+	foo = true;
+	ships Player;
+	ships Computer;
+	Player.placeShips();
+	drawBoard(Player);
+}
