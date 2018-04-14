@@ -69,51 +69,14 @@ public:
 					do
 					{
 						cin >> shipRow;
-						switch (shipRow)
+						shipRowNum = shipRow - 96;
+						if(shipRowNum > 0 && shipRowNum <= 10)
 						{
-						case 'A':
-							shipRowNum = 1;
 							Dalton = false;
-							break;
-						case 'B':
-							shipRowNum = 2;
-							Dalton = false;
-							break;
-						case 'C':
-							shipRowNum = 3;
-							Dalton = false;
-							break;
-						case 'D':
-							shipRowNum = 4;
-							Dalton = false;
-							break;
-						case 'E':
-							shipRowNum = 5;
-							Dalton = false;
-							break;
-						case 'F':
-							shipRowNum = 6;
-							Dalton = false;
-							break;
-						case 'G':
-							shipRowNum = 7;
-							Dalton = false;
-							break;
-						case 'H':
-							shipRowNum = 8;
-							Dalton = false;
-							break;
-						case 'I':
-							shipRowNum = 9;
-							Dalton = false;
-							break;
-						case 'J':
-							shipRowNum = 10;
-							Dalton = false;
-							break;
-						default:
-							cout << "Please enter a valid choice" << endl << "Choice:";
-							break;
+						}
+						else
+						{
+							cout << "Please enter a valid option" << endl;
 						}
 					} while (Dalton);
 					cout << endl << "Please enter the number of the row you would liketo start your ship at (1-10)" << endl;
@@ -121,7 +84,7 @@ public:
 					{
 						cout << "Choice:";
 						cin >> shipColumn;
-						if (shipColumn > 0 && shipColumn < 11)
+						if (shipColumn > 0 && shipColumn <= 10)
 						{
 							switch (ship)
 							{
@@ -140,10 +103,7 @@ public:
 								{
 									for (int i = 0; i<5; i++)
 									{
-										for (int j = 0; j<5; j++)
-										{
-											carrLocation[i][j] = shipRowNum, shipColumn + i;
-										}
+										carrLocation[i][2] = {shipRowNum, (shipColumn + i)};
 									}
 								}
 								break;
@@ -162,10 +122,7 @@ public:
 								{
 									for (int i = 0; i<4; i++)
 									{
-										for (int j = 0; j<4; j++)
-										{
-											bsLocation[i][j] = shipRowNum, shipColumn + i;
-										}
+										bsLocation[i][2] = {shipRowNum, (shipColumn + i)};
 									}
 								}
 								break;
@@ -184,10 +141,7 @@ public:
 								{
 									for (int i = 0; i<3; i++)
 									{
-										for (int j = 0; j<3; j++)
-										{
-											dLocation[i][j] = shipRowNum, shipColumn + i;
-										}
+										dLocation[i][2] = shipRowNum, shipColumn + i;
 									}
 								}
 								break;
@@ -206,10 +160,7 @@ public:
 								{
 									for (int i = 0; i<3; i++)
 									{
-										for (int j = 0; j<3; j++)
-										{
-											subLocation[i][j] = shipRowNum, shipColumn + i;
-										}
+										subLocation[i][2] = shipRowNum, shipColumn + i;
 									}
 								}
 								break;
@@ -228,10 +179,7 @@ public:
 								{
 									for (int i = 0; i<2; i++)
 									{
-										for (int j = 0; j<2; j++)
-										{
 											carrLocation[i][j] = shipRowNum, shipColumn + i;
-										}
 									}
 								}
 								break;
@@ -257,17 +205,14 @@ public:
 	bool check(int column, int row, string ship)
 	{
 		//cycle through the ship location values looking for a match, yes it's messy but hey it works (poi)
-		int coords[2] = { column, row };
+		int coords[1][2] = { column, row };
 		if (ship != "Carrier")
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				for (int j = 0; j < 5; j++)
+				if (carrLocation[i][2] == coords[1][2])
 				{
-					if (carrLocation[i][j] == coords[1], coords[2])
-					{
-						return(true);
-					}
+					return(true);
 				}
 			}
 		}
@@ -275,12 +220,9 @@ public:
 		{
 			for (int i = 0; i < 4; i++)
 			{
-				for (int j = 0; j < 4; j++)
+				if (bsLocation[i][2] == coords[1][2])
 				{
-					if (bsLocation[i][j] == coords[1], coords[2])
-					{
-						return(true);
-					}
+					return(true);
 				}
 			}
 		}
@@ -288,12 +230,9 @@ public:
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				for (int j = 0; j < 3; j++)
+				if (dLocation[i][2] == coords[1][2])
 				{
-					if (dLocation[i][j] == coords[1], coords[2])
-					{
-						return(true);
-					}
+					return(true);
 				}
 			}
 		}
@@ -301,12 +240,9 @@ public:
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				for (int j = 0; j < 3; j++)
+				if (subLocation[i][2] == coords[1][2])
 				{
-					if (subLocation[i][j] == coords[1], coords[2])
-					{
-						return(true);
-					}
+					return(true);
 				}
 			}
 		}
@@ -314,12 +250,9 @@ public:
 		{
 			for (int i = 0; i < 2; i++)
 			{
-				for (int j = 0; j < 2; j++)
+				if (cLocation[i][2] == coords[1][2])
 				{
-					if (cLocation[i][j] == coords[1], coords[2])
-					{
-						return(true);
-					}
+					return(true);
 				}
 			}
 		}
@@ -330,57 +263,42 @@ public:
 		int coords[2] = { column, row };
 		for (int i = 0; i<5; i++)
 		{
-			for (int j = 0; j < 5; j++)
+			if (carrLocation[i][2] == coords[1][2])
 			{
-				if (carrLocation[i][j] == coords[1],coords[2])
-				{
-					carrSecSunk[i] = true;
-					return(true);
-				}
+				carrSecSunk[i] = true;
+				return(true);
 			}
 		}
 		for (int i = 0; i<4; i++)
 		{
-			for (int j = 0; j<4; j++)
+			if (bsLocation[i][2] == coords[1][2])
 			{
-				if (bsLocation[i][j] == coords[1], coords[2])
-				{
-					bsSecSunk[i] = true;
-					return(true);
-				}
+				bsSecSunk[i] = true;
+				return(true);
 			}
 		}
 		for (int i = 0; i<3; i++)
 		{
-			for (int j = 0; j<3; j++)
+			if (dLoction[i][2] == coords[1][2])
 			{
-				if (dLocation[i][j] == coords[1], coords[2])
-				{
 					dSecSunk[i] = true;
 					return(true);
-				}
 			}
 		}
 		for (int i = 0; i<3; i++)
 		{
-			for (int j = 0; j<3; j++)
+			if (subLocation[i][2] == coords[1][2])
 			{
-				if (subLocation[i][j] == coords[1], coords[2])
-				{
-					subSecSunk[i] = true;
-					return(true);
-				}
+				subSecSunk[i] = true;
+				return(true);
 			}
 		}
 		for (int i = 0; i<2; i++)
 		{
-			for (int j = 0; j<2; j++)
+			if (cLocation[i][2] == coords[1][2])
 			{
-				if (cLocation[i][j] == coords[1], coords[2])
-				{
-					cSecSunk[i] = true;
-					return(true);
-				}
+				cSecSunk[i] = true;
+				return(true);
 			}
 		}
 		return(false);
@@ -389,52 +307,37 @@ public:
 	{
 		for (int i = 0; i<5; i++)
 		{
-			for (int j = 0; j < 5; j++)
+			if (carrSecSunk[i])
 			{
-				if (carrSecSunk[i])
-				{
-					return(true);
-				}
+				return(true);
 			}
 		}
 		for (int i = 0; i<4; i++)
 		{
-			for (int j = 0; j<4; j++)
+			if (bsSecSunk[i])
 			{
-				if (bsSecSunk[i])
-				{
-					return(true);
-				}
+				return(true);
 			}
 		}
 		for (int i = 0; i<3; i++)
 		{
-			for (int j = 0; j<3; j++)
+			if (dSecSunk[i])
 			{
-				if (dSecSunk[i])
-				{
-					return(true);
-				}
+				return(true);
 			}
 		}
 		for (int i = 0; i<3; i++)
 		{
-			for (int j = 0; j<3; j++)
+			if (subSecSunk[i])
 			{
-				if (subSecSunk[i])
-				{
-					return(true);
-				}
+				return(true);
 			}
 		}
 		for (int i = 0; i<2; i++)
 		{
-			for (int j = 0; j<2; j++)
+			if (cSecSunk[i])
 			{
-				if (cSecSunk[i])
-				{
-					return(true);
-				}
+				return(true);
 			}
 		}
 		return(false);
@@ -445,40 +348,7 @@ public:
 	}
 	int guess(int column, char row)
 	{
-		int rowNumber;
-		switch (row)
-		{
-		case 'A':
-			rowNumber = 1;
-			break;
-		case 'B':
-			rowNumber = 2;
-			break;
-		case 'C':
-			rowNumber = 3;
-			break;
-		case 'D':
-			rowNumber = 4;
-			break;
-		case 'E':
-			rowNumber = 5;
-			break;
-		case 'F':
-			rowNumber = 6;
-			break;
-		case 'G':
-			rowNumber = 7;
-			break;
-		case 'H':
-			rowNumber = 8;
-			break;
-		case 'I':
-			rowNumber = 9;
-			break;
-		case 'J':
-			rowNumber = 10;
-			break;
-		}
+		int rowNumber = row - 96;
 		if (checkHit(column, rowNumber))
 		{
 			cout << endl << "Hit!" << endl;
